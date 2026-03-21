@@ -5,5 +5,6 @@ from rest_framework.routers import DefaultRouter
 router = DefaultRouter()
 router.register(r"products",ProductView,basename="products")
 urlpatterns = [
-    path('',include(router.urls))
+    path('',include(router.urls)),
+    path('inventorystats/',InventoryStatsView.as_view()),
 ] 

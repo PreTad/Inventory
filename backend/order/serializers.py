@@ -11,6 +11,7 @@ class OrderItemsSerializer(serializers.ModelSerializer):
         fields = [
             "product",
             "quantity",
+            "unit_price",
             "line_total"
         ]
         read_only_fields =[
@@ -35,7 +36,7 @@ class OrderSerializer(serializers.ModelSerializer):
         ]
         read_only_fields = [
             "status",
-            "items.line_total"
+            "items.line_total",
             "total",
         ]
 
@@ -49,9 +50,8 @@ class OrderSerializer(serializers.ModelSerializer):
 
             for item in items_data:
                 quantity = item["quantity"]
-                unit_price = item["unit_price"]
-
                 product = item["product"]
+                unit_price = product.unit_price
 
                 current_quantity = Products.objects.filter(
                     id=product.id
