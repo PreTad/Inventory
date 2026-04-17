@@ -5,7 +5,6 @@ import { DayAndNightToggle } from 'react-day-and-night-toggle';
 const navItems = [
     { label: 'Products', to: '/admin', icon: <AiFillProduct />, end: true },
     { label: 'Dashboard', to: '/admin/dashboard', icon: <AiOutlineLineChart fontWeight={20} /> },
-    { label: 'Something', to: '/admin/sth', icon: <AiFillDashboard /> },
 ];
 
 const SideNav = ({ isDarkMode, onToggleDarkMode }) => {
