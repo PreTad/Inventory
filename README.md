@@ -92,3 +92,15 @@ Access Swagger/OpenAPI documentation after running the backend server.
 ## 👨‍💻 Author
 
 Developed as part of a full-stack system for Midroc Investment Group.
+
+## 📸 Screenshots
+
+### Admin pages
+![Homepage](./employee-page/src/assets/screenshots/admin_home.png)
+![Dashboard](./employee-page/src/assets/screenshots/admin_dashboard.png)
+
+### Customer Page
+![Product](./employee-page/src/assets/screenshots/home.png)
+![Detail](./employee-page/src/assets/screenshots/detail.png)
+![Cart](./employee-page/src/assets/screenshots/cart.png)
+
