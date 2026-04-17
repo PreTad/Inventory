@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.sqlite3
+
+# Virtual environments
+.venv/
+venv/
+backend/venv/
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Django media/static build artifacts
+backend/media/
+backend/staticfiles/
+
+# Frontend
+node_modules/
+dist/
+dist-ssr/
+
+# Tooling / OS
+.DS_Store
+.idea/
+.vscode/

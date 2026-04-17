@@ -1,7 +1,12 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios'
-import ErrorMessage from '../components/error';
+import ErrorMessage from '../components/Messages/error';
+import { AuthContext } from './AuthContext';
+import shopBg from '../assets/shop.jpg';
+
+const API = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000';
+
 const LoginPage = () => {
   const [formData, setFormData] = useState({
     email: '',
@@ -10,6 +15,17 @@ const LoginPage = () => {
   const [isError,setIsError]  = useState(false);
   const [errMessage,setErrMessage]  = useState('');
   const navigate = useNavigate()
+  const { setUser } = useContext(AuthContext);
+
+  const decodeToken = (token) => {
+    try {
+      const payloadPart = token.split(".")[1];
+      const payloadJson = atob(payloadPart.replace(/-/g, "+").replace(/_/g, "/"));
+      return JSON.parse(payloadJson);
+    } catch {
+      return null;
+    }
+  };
 
   const handleCloseError = () => {
     setIsError(false);
@@ -23,12 +39,16 @@ const LoginPage = () => {
     e.preventDefault();
     try{
         const res = await axios.post(
-            'http://127.0.0.1:8000/api/login/',
+            `${API}/api/login/`,
             formData
         );
 
         localStorage.setItem("access",res.data.access);
         localStorage.setItem("refresh",res.data.refresh);
+        const payload = decodeToken(res.data.access);
+        if (payload) {
+          setUser(payload);
+        }
 
         navigate('/home')
     }catch {
@@ -41,8 +61,12 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-black px-4">
-      <div className="max-w-md w-full bg-white rounded-xl shadow-lg p-8">
+    <div
+      className="relative min-h-screen flex items-center justify-center h-screen bg-cover bg-center px-4"
+      style={{ backgroundImage: `url(${shopBg})` }}
+    >
+      <div className="absolute inset-0 bg-black/15 backdrop-blur-[2px]" />
+      <div className="relative z-10 max-w-md w-full bg-white rounded-xl shadow-lg p-8">
         {isError && 
            ( <ErrorMessage msg={errMessage} onClose={handleCloseError}/>)}
         <h2 className="text-3xl font-bold text-green-900 text-center mb-6">

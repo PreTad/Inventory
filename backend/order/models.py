@@ -45,7 +45,9 @@ class Order(models.Model):
         return super().save(*args, **kwargs)
     
      def __str__(self):
-        return self.customer_name
+        if self.customer_name:
+            return self.customer_name
+        return self.order_number or f"Order {self.pk}"
     
      
 class OrderItem(models.Model):

@@ -1,0 +1,15 @@
+from django.db import models
+from django.conf import settings
+from order.models import Order
+
+class Transaction(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    order = models.ForeignKey(Order, on_delete=models.PROTECT, null=True, blank=True)
+    order_payload = models.JSONField(null=True, blank=True)
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
+    tx_ref = models.CharField(max_length=100, unique=True)
+    status = models.CharField(max_length=20, default='pending') # pending, success, failed
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.user.email} - {self.tx_ref} - {self.status}"
